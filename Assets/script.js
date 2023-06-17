@@ -1,14 +1,33 @@
 //Docement selector variables
-var timerElement = document.querySelector(".timer-count");
-var timer;
-var timerCount;
-var questionElement = document.getElementById("question");
-var answerBtnElement = document.getElementById("answer-btn");
-var nextBtnElement = document.getElementById("next-btn");
+var timerElement = document.getElementById("timer-count");
+const questionElement = document.getElementById("question");
+const answerBtnElement = document.getElementById("answer-btn");
+const nextBtnElement = document.getElementById("next-btn");
+
 var currentQuestionIndex = 0;
 var score = 0;
-var timeFinal = 'Error';
+var completed= false;
+var timerVal;
+var timerCount = 5;
 
+
+//Function for intial confirm
+function init(){
+    currentQuestionIndex = 0;
+    score = 0;
+    nextBtnElement.innerHTML= "Next Question";
+    completed= false;
+    timerVal = setInterval(countdown, 1000);
+    showQuestion();
+    countdown();
+};
+
+function countdown(){
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if(timerCount <= 0)
+    showScore();
+}
 
 //Storage of the displayed questions
 var questionList = [
@@ -43,18 +62,10 @@ answers: [
 },
 ];
 
-//Function for intial confirm
-function init(){
-    currentQuestionIndex = 0;
-    score = 0;
-    nextBtnElement.innerHTML= "Next";
-    showQuestion();
-}
 
 //Displays questions from above list
 function showQuestion(){
     resetFields()
-    
     var currentQuestion = questionList[currentQuestionIndex];
     var questionNum = currentQuestion +1;
     questionElement.innerHTML = questionNum + ". " + currentQuestion.question;
@@ -70,15 +81,6 @@ function showQuestion(){
         button.addEventListener("click", selectAnswer);
     });
 }
-
-//Timer
-function startTimer() {
-    // Sets timer
-    timer = setInterval(function() {
-      timerCount--;
-    }, 1000);
-}
-
 //Clears previous question and intial placeholder buttons
 function resetFields(){
     nextBtnElement.style.display = "none";
@@ -107,13 +109,20 @@ function selectAnswer(event){
     nextBtnElement.style.display ="block";
 }
 
+//TODO FIX TIMEOUT timerElement is not being stored as a number
 function showScore(){
     resetFields();
-    questionElement.innerHTML = 'You scored ${score} out of 4!';
+    clearInterval(timerVal)
+    timerVal = timerElement.value; 
+    if(timerVal = 0){
+        questionElement.innerHTML = "TIMED OUT! You scored "+ score + " out of 4"
+    }else
+    {questionElement.innerHTML = "You scored "+ score + " out of 4 in " + timerVal + "!";}
     nextBtnElement.innerHTML = "Try again?";
     nextBtnElement.style.display = "block";
-
 }
+
+
 
 function handleNextbutton(){
     currentQuestionIndex++;
