@@ -1,7 +1,12 @@
 *{  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     color:blueviolet;
 }
 
+.holder{
+        width: 90%;
+}
 
 .header nav{
 justify-content: flex-start;
@@ -19,7 +24,7 @@ text-align: center;
     margin: 25px;
   }
 
-.timer-text{
+.timer-count{
     font-size: 300%;
     text-align: left 50px;
 }
@@ -29,7 +34,45 @@ h3{
    right: 50px;
 }
 
-.questions{
+.quiz{
     margin: 10%;
-    font-size: 250%;
+}
+
+.quiz h2{
+    font-size: 150%;
+    font-weight: 600;
+}
+
+.btn{
+    background-color: whitesmoke;
+    padding: 1%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.btn:hover:not([disabled]){
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
+.btn:disabled{
+    cursor: no-drop;
+}
+
+#confirm-btn{
+    background-color: whitesmoke;
+    padding: 1%;
+    margin-top: 20px;
+    text-align: left;
+    display: none;
+}
+
+.correct{
+    background-color: greenyellow;
+    color: black;
+}
+
+.incorrect{
+    background-color: crimson;
+    color: black;
 }

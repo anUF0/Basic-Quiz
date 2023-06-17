@@ -9,14 +9,22 @@
 <body>
     <header class="header">
         <nav>High Scores</nav>
-        <h1 class="title">Test Out Your Knowledge!</h1>
+        <h1>Test Out Your Knowledge!</h1>
         <div class="timer">
-            <timer class="timer-text">12</timer>
+            <timer class="timer-count">12</timer>
             <h3>second(s) remaining</h3>
         </div>
     </header>
-    <main>
-    <section class="questions">Questions will go here</section>
+    <main class="holder">
+    <section class="quiz">
+        <h2 id="question">Questions will go here</h2>
+       <div id="answer-btn">
+        <button class="btn">Answer A</button>
+        <button class="btn">Answer B</button>
+        <button class="btn">Answer C</button>
+        <button class="btn">Answer D</button>
+       </div>
+       <button id="next-btn">Next Question</button>
     </main>
 <script src="assets//script.js"></script>
 </body>
