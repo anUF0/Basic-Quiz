@@ -1,0 +1,35 @@
+*{  box-sizing: border-box;
+    color:blueviolet;
+}
+
+
+.header nav{
+justify-content: flex-start;
+margin: 25px;
+}
+
+.header h1{
+text-align: center;
+}
+
+.timer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 25px;
+  }
+
+.timer-text{
+    font-size: 300%;
+    text-align: left 50px;
+}
+
+h3{
+    position: relative;
+   right: 50px;
+}
+
+.questions{
+    margin: 10%;
+    font-size: 250%;
+}
