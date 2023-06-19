@@ -76,3 +76,18 @@ h3{
     background-color: crimson;
     color: black;
 }
+
+#highscore-link{
+    background-color: whitesmoke;
+    padding: 1%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+#highscore-link:hover{
+    cursor: pointer;
+}
+
+#next-btn:hover{
+    cursor: pointer;
+}

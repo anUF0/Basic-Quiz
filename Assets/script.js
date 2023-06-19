@@ -1,15 +1,17 @@
 //Docement selector variables
-var timerElement = document.getElementById("timer-count");
+const timerElement = document.getElementById("timer-count");
 const questionElement = document.getElementById("question");
 const answerBtnElement = document.getElementById("answer-btn");
 const nextBtnElement = document.getElementById("next-btn");
+const highScoreElement = document.getElementById("highscore-link");
+const titleElement = document.getElementById("title");
+const mutliBtnElemnet = document.getElementById('btn');
 
 var currentQuestionIndex;
 var score = 0;
-var completed= false;
 var timerVal;
 var timerCount;
-var initials;
+var initialInput;
 
 
 //Function for intial confirm
@@ -17,12 +19,10 @@ function init(){
     currentQuestionIndex = 0;
     timerCount= 15;
     score = 0;
-    console.log('garland')
+    initialInput ='';
 };
 
-
 function startQuiz(){
-completed= false;
 timerVal = setInterval(countdown, 1000);
 showQuestion();
 countdown();
@@ -34,7 +34,6 @@ function countdown(){
     if(timerCount <= 0){
     timeOut()
     }
-    console.log('cherry')
 }
 
 //Storage of the displayed questions
@@ -117,26 +116,32 @@ function selectAnswer(event){
     nextBtnElement.style.display ="block";
 }
 
-//TODO FIX TIMEOUT timerElement is not being stored as a number
 function showScore(){
     resetFields();
+    getInitials();
     clearInterval(timerVal);
-    let initials = "P.v.R"
     questionElement.innerHTML = "You scored "+ score + " out of 4";
     nextBtnElement.innerHTML = "Reckon you can do better?";
     nextBtnElement.style.display = "block";
-    localStorage.setItem("High score", [initials + " got " + score + " out of 4"])
+    localStorage.setItem("High Scores", [initialInput + " got " + score + " out of 4"])
 }
 
 function timeOut(){
     resetFields();
-    let initials = "P.v.R"
-    clearInterval(timerVal)
+    clearInterval(timerVal);
+    getInitials();
+    //This line is here to disable previous advent listener
     currentQuestionIndex = questionList.length
     questionElement.innerHTML = "TIMED OUT! But you got "+ score + " out of 4 correct!"
     nextBtnElement.innerHTML = "Try again?";
     nextBtnElement.style.display = "block";
-    localStorage.setItem("Times Out", [initials + " ran out of time"])
+    localStorage.setItem("Time Out", [initialInput + " ran out of time"])
+}
+
+function  getInitials(){
+  initialInput = window.prompt('Enter your Intials')
+  if(initialInput = ''){
+  }
 }
 
 function handleNextbutton(){
@@ -150,6 +155,7 @@ function handleNextbutton(){
 
 }
 
+//All the various listers on the start/next button
 nextBtnElement.addEventListener('click', ()=>{
     if(nextBtnElement.innerHTML === 'Click here to start'){
     startQuiz()
@@ -161,6 +167,18 @@ nextBtnElement.addEventListener('click', ()=>{
         location.reload();
     }
 })
+
+highScoreElement.addEventListener('click', () =>{
+    let storedScore = localStorage.getItem("High Scores")
+    currentQuestionIndex = 4;
+    nextBtnElement.innerHTML = 'Back';
+    clearInterval(timerVal);
+    titleElement.textContent = 'HIGH SCORES';
+    questionElement.textContent = 'Previous Challengers';
+    timerElement.textContent = '15';
+    mutliBtnElemnet.textContent = storedScore
+})
+
 
 //Calling Initialisation
 init();

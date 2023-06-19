@@ -8,8 +8,8 @@
 </head>
 <body>
     <header class="header">
-        <nav>High Scores</nav>
-        <h1>Test Out Your Knowledge!</h1>
+        <nav id="highscore-link">High Scores</nav>
+        <h1 id="title">Test Out Your Knowledge!</h1>
         <div class="timer">
             <div id="timer-count"></div>
             <h3>second(s) remaining</h3>
@@ -17,14 +17,16 @@
     </header>
     <main class="holder">
     <section class="quiz">
-        <h2 id="question">Questions will go here</h2>
+        <h2 id="question">Questions will appear here</h2>
        <div id="answer-btn">
         <button class="btn">Answer A</button>
         <button class="btn">Answer B</button>
         <button class="btn">Answer C</button>
         <button class="btn">Answer D</button>
        </div>
+       <div>
        <button id="next-btn">Click here to start</button>
+        </div> 
     </main>
 <script src="assets//script.js"></script>
 </body>
