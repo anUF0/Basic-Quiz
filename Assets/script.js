@@ -9,12 +9,13 @@ var score = 0;
 var completed= false;
 var timerVal;
 var timerCount;
+var initials;
 
 
 //Function for intial confirm
 function init(){
     currentQuestionIndex = 0;
-    timerCount= 5;
+    timerCount= 15;
     score = 0;
     console.log('garland')
 };
@@ -38,33 +39,33 @@ function countdown(){
 
 //Storage of the displayed questions
 const questionList = [
-    {question:"Q.1 What armament does a Vindicator Seige Tank have?",
+    {question:"Q.1 What style should one's Programmer socks be?",
     answers: [
-        {text: "Demolister Cannon", correct: true},
-        {text: "Heavy Stubber", correct: false},
-        {text: "Beam Rifle", correct: false},
-        {text: "Pink Programming Socks", correct: false},
+        {text: "Striped Cotton", correct: true},
+        {text: "Nylon", correct: false},
+        {text: "Lace", correct: false},
+        {text: "Plain Cotton", correct: false},
     ]   
-}, {question:"Q.2 What main armament does a Predator Annhilator have?",
+}, {question:"Q.2 Where on the leg shoule one's Programmer socks come up to?",
 answers: [
-    {text: "Magetsu Railgun", correct: false},
-    {text: "Multi-Melta", correct: false},
-    {text: "Twin-linked Lascannon", correct: true},
-    {text: "Pink Programing Socks", correct: false},
+    {text: "Ankle", correct: false},
+    {text: "Calf", correct: false},
+    {text: "Knee", correct: true},
+    {text: "Mid-Thigh", correct: false},
 ]
-}, {question:" Q.3 What armament does a Vindicator Seige Tank have?",
+}, {question:" Q.3 Which Coding Language is best learned in the comfort of programming socks?",
 answers: [
-    {text: "Demolister Cannon", correct: true},
-    {text: "Heavy Stubber", correct: false},
-    {text: "Beam Rifle", correct: false},
-    {text: "Vulkan Bolter", correct: false},
+    {text: "javascript", correct: false},
+    {text: "C++", correct: true},
+    {text: "Python", correct: false},
+    {text: "html", correct: false},
 ]
-},{question:"Q.4 What main armament does a Predator Annhilator have?",
+},{question:"Q.4 What is the best colour for comfortable programming socks?",
 answers: [
-    {text: "Magetsu Railgun", correct: false},
-    {text: "Multi-Melta", correct: false},
-    {text: "Twin-linked Lascannon", correct: true},
-    {text: "Pink Programing Socks", correct: false},
+    {text: "Cyan", correct: false},
+    {text: "Pink", correct: true},
+    {text: "RGB", correct: false},
+    {text: "Black", correct: false},
 ]
 },
 ];
@@ -120,18 +121,22 @@ function selectAnswer(event){
 function showScore(){
     resetFields();
     clearInterval(timerVal);
+    let initials = "P.v.R"
     questionElement.innerHTML = "You scored "+ score + " out of 4";
     nextBtnElement.innerHTML = "Reckon you can do better?";
     nextBtnElement.style.display = "block";
+    localStorage.setItem("High score", [initials + " got " + score + " out of 4"])
 }
 
 function timeOut(){
     resetFields();
+    let initials = "P.v.R"
     clearInterval(timerVal)
     currentQuestionIndex = questionList.length
     questionElement.innerHTML = "TIMED OUT! But you got "+ score + " out of 4 correct!"
     nextBtnElement.innerHTML = "Try again?";
     nextBtnElement.style.display = "block";
+    localStorage.setItem("Times Out", [initials + " ran out of time"])
 }
 
 function handleNextbutton(){
