@@ -4,55 +4,62 @@ const questionElement = document.getElementById("question");
 const answerBtnElement = document.getElementById("answer-btn");
 const nextBtnElement = document.getElementById("next-btn");
 
-var currentQuestionIndex = 0;
+var currentQuestionIndex;
 var score = 0;
 var completed= false;
 var timerVal;
-var timerCount = 5;
+var timerCount;
 
 
 //Function for intial confirm
 function init(){
     currentQuestionIndex = 0;
+    timerCount= 5;
     score = 0;
-    nextBtnElement.innerHTML= "Next Question";
-    completed= false;
-    timerVal = setInterval(countdown, 1000);
-    showQuestion();
-    countdown();
+    console.log('garland')
 };
+
+
+function startQuiz(){
+completed= false;
+timerVal = setInterval(countdown, 1000);
+showQuestion();
+countdown();
+}
 
 function countdown(){
     timerCount--;
     timerElement.textContent = timerCount;
-    if(timerCount <= 0)
-    showScore();
+    if(timerCount <= 0){
+    timeOut()
+    }
+    console.log('cherry')
 }
 
 //Storage of the displayed questions
-var questionList = [
-    {question:"What armament does a Vindicator Seige Tank have?",
+const questionList = [
+    {question:"Q.1 What armament does a Vindicator Seige Tank have?",
     answers: [
         {text: "Demolister Cannon", correct: true},
         {text: "Heavy Stubber", correct: false},
         {text: "Beam Rifle", correct: false},
         {text: "Pink Programming Socks", correct: false},
     ]   
-}, {question:"What main armament does a Predator Annhilator have?",
+}, {question:"Q.2 What main armament does a Predator Annhilator have?",
 answers: [
     {text: "Magetsu Railgun", correct: false},
     {text: "Multi-Melta", correct: false},
     {text: "Twin-linked Lascannon", correct: true},
     {text: "Pink Programing Socks", correct: false},
 ]
-}, {question:"What armament does a Vindicator Seige Tank have?",
+}, {question:" Q.3 What armament does a Vindicator Seige Tank have?",
 answers: [
     {text: "Demolister Cannon", correct: true},
     {text: "Heavy Stubber", correct: false},
     {text: "Beam Rifle", correct: false},
     {text: "Vulkan Bolter", correct: false},
 ]
-},{question:"What main armament does a Predator Annhilator have?",
+},{question:"Q.4 What main armament does a Predator Annhilator have?",
 answers: [
     {text: "Magetsu Railgun", correct: false},
     {text: "Multi-Melta", correct: false},
@@ -67,8 +74,7 @@ answers: [
 function showQuestion(){
     resetFields()
     var currentQuestion = questionList[currentQuestionIndex];
-    var questionNum = currentQuestion +1;
-    questionElement.innerHTML = questionNum + ". " + currentQuestion.question;
+    questionElement.innerHTML = currentQuestion.question;
 
     currentQuestion.answers.forEach(answer => {
         var button = document.createElement("button");
@@ -106,38 +112,48 @@ function selectAnswer(event){
         button.disabled = true;
     });
     //Makes the "next" button reappear
+    nextBtnElement.innerHTML = "Next Question";
     nextBtnElement.style.display ="block";
 }
 
 //TODO FIX TIMEOUT timerElement is not being stored as a number
 function showScore(){
     resetFields();
-    clearInterval(timerVal)
-    timerVal = timerElement.value; 
-    if(timerVal = 0){
-        questionElement.innerHTML = "TIMED OUT! You scored "+ score + " out of 4"
-    }else
-    {questionElement.innerHTML = "You scored "+ score + " out of 4 in " + timerVal + "!";}
-    nextBtnElement.innerHTML = "Try again?";
+    clearInterval(timerVal);
+    questionElement.innerHTML = "You scored "+ score + " out of 4";
+    nextBtnElement.innerHTML = "Reckon you can do better?";
     nextBtnElement.style.display = "block";
 }
 
-
+function timeOut(){
+    resetFields();
+    clearInterval(timerVal)
+    currentQuestionIndex = questionList.length
+    questionElement.innerHTML = "TIMED OUT! But you got "+ score + " out of 4 correct!"
+    nextBtnElement.innerHTML = "Try again?";
+    nextBtnElement.style.display = "block";
+}
 
 function handleNextbutton(){
     currentQuestionIndex++;
     if(currentQuestionIndex < questionList.length){
         showQuestion();
-    }else{
+    }
+    else{
         showScore();
     }
+
 }
 
 nextBtnElement.addEventListener('click', ()=>{
-    if(currentQuestionIndex < questionList.length){
-        handleNextbutton();
-    }else{
-        init()
+    if(nextBtnElement.innerHTML === 'Click here to start'){
+    startQuiz()
+    }
+    else if(currentQuestionIndex < questionList.length){
+    handleNextbutton();
+    }
+    else{
+        location.reload();
     }
 })
 
